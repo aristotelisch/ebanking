@@ -1,0 +1,33 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ],
+  "env": {
+    "DATABASE_PASSWORD": {
+      "required": true
+    },
+    "DATABASE_USERNAME": {
+      "required": true
+    },
+    "ENVIRONMENT": {
+      "required": true
+    },
+    "JWT_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "ebanking",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
