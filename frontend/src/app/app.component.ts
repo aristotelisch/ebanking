@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  msgs = '';
+  title = 'Ebanking';
+
+  constructor(private messageService: MessageService) { }
+
+  addSingle() {
+    this.messageService.add({ severity: 'success', summary: 'Service Message', detail: '' });
+  }
+
+  addMultiple() {
+    this.messageService.addAll([{ severity: 'success', summary: 'Service Message', detail: '' },
+    { severity: 'info', summary: 'Info Message', detail: 'Via MessageService' }]);
+  }
+
+  clear() {
+    this.messageService.clear();
+  }
+
 }
