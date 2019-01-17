@@ -21,10 +21,7 @@ public class User {
 
   @NotBlank private String lastName;
 
-  @NaturalId
-  @Email
-  @NotBlank
-  private String email;
+  @NaturalId @Email @NotBlank private String email;
 
   @Column(unique = true)
   private String username;
@@ -34,13 +31,14 @@ public class User {
   private String password;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_roles",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private Set<Role> roles = new HashSet<> ();
-  public User() {
+  @JoinTable(
+      name = "user_roles",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<Role> roles = new HashSet<>();
 
-  }
+  public User() {}
+
   public User(String firstName, String lastName, String username, String email, String password) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -48,5 +46,4 @@ public class User {
     this.email = email;
     this.password = password;
   }
-
 }
