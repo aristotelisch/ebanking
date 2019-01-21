@@ -6,8 +6,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/login">Login<span class="sr-only">(current)</span></a>
-      <a *ngIf="currentUserValue != null" class="nav-item nav-link" (click)="logout()">Logout<span class="sr-only">(current)</span></a>
+        <a *ngIf="!this.authentication.isAuthenticatedV2().value" class="nav-item nav-link" routerLinkActive="active" routerLink="/login">Login<span class="sr-only">(current)</span></a>
+
+        <a *ngIf="this.authentication.isAuthenticatedV2().value" class="nav-item nav-link" (click)="logout()">Logout<span class="sr-only">(current)</span></a>
     </div>
   </div>
 </nav>

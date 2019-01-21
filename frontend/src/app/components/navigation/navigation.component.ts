@@ -13,9 +13,7 @@ export class NavigationComponent implements OnInit {
   constructor(private authentication: AuthenticationService, private route: Router) { }
 
   ngOnInit() {
-    this.currentUserValue = this.authentication.currentUserValue;
-    this.authentication.currentUser.subscribe(data => console.log(data));
-    console.log(this.authentication.currentUserValue);
+
   }
 
   logout() {

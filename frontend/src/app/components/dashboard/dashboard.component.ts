@@ -10,7 +10,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  public currentUser: User;
+  public currentUser;
   currentUserSubscription: Subscription;
 
   constructor(private authenticationService: AuthenticationService) {
@@ -18,13 +18,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.currentUserSubscription.unsubscribe();
+    // this.currentUserSubscription.unsubscribe();
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    // this.currentUser = this.authenticationService.currentUser;
   }
-
 }

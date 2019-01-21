@@ -14,6 +14,16 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import {CardModule} from "primeng/card";
+import {
+  MatButtonModule,
+  MatCard,
+  MatCardModule,
+  MatCardTitle,
+  MatCheckboxModule,
+  MatFormFieldModule, MatInputModule
+} from "@angular/material";
+import {AuthGuardService} from "./services/auth-guard.service";
 
 
 @NgModule({
@@ -33,9 +43,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MessageModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    CardModule,
+    MatButtonModule, MatCheckboxModule, MatCardModule, MatFormFieldModule, MatInputModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
