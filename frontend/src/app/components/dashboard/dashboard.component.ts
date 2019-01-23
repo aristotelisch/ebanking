@@ -10,8 +10,11 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  public currentUser;
-  currentUserSubscription: Subscription;
+
+  get currentUser(): string {
+    console.log('ON DASHBOARD: ', this.authenticationService.currentUser);
+    return this.authenticationService.currentUser;
+  }
 
   constructor(private authenticationService: AuthenticationService) {
   }
@@ -22,6 +25,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.currentUser = this.authenticationService.currentUser;
+
   }
 }

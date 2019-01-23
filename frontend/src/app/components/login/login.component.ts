@@ -1,16 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MessageService} from 'primeng/components/common/messageservice';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [AuthenticationService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -19,7 +17,6 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  userLogin = { email: '', password: ''};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +24,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private messageService: MessageService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -44,19 +42,19 @@ export class LoginComponent implements OnInit {
     console.log('ON SUBMIT');
     this.submitted = true;
 
-     // stop here if form is invalid
-     if (this.loginForm.invalid) {
-       console.log('Form validation', this.loginForm.invalid);
-       console.log('Form errors', this.loginForm.controls);
-       return;
-     }
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      console.log('Form validation', this.loginForm.invalid);
+      console.log('Form errors', this.loginForm.controls);
+      return;
+    }
 
     this.loading = true;
     this.authenticationService.login(loginFormValues.email, loginFormValues.password)
       .subscribe(result => {
           // Store the token
-          console.log('RESULT OF LOGIN: ', result);
           this.authenticationService.setToken(result['accessToken']);
+          this.authenticationService.setUser(result['usernameOrEmail']);
           // Redirect to home
           this.router.navigate(['']);
         },

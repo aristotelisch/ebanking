@@ -1,14 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="/dashboard">Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-    aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-        <a *ngIf="!this.authentication.isAuthenticatedV2().value" class="nav-item nav-link" routerLinkActive="active" routerLink="/login">Login<span class="sr-only">(current)</span></a>
+      <a *ngIf="!this.authentication.isAuthenticated()" class="nav-item nav-link" routerLinkActive="active"
+                                                        routerLink="/login">Login
+        <span class="sr-only">(current)</span>
+      </a>
 
-        <a *ngIf="this.authentication.isAuthenticatedV2().value" class="nav-item nav-link" (click)="logout()">Logout<span class="sr-only">(current)</span></a>
+      <div *ngIf="this.authentication.isAuthenticated(); then logoutTemplate"></div>
+      <ng-template #logoutTemplate>
+        <a href="#" class="nav-item nav-link">User is: {{currentUser}}</a>
+        <a  class="nav-item nav-link" (click)="logout()">
+          Logout
+          <span class="sr-only">(current)</span>
+        </a>
+      </ng-template>
     </div>
   </div>
 </nav>

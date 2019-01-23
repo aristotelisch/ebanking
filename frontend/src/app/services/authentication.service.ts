@@ -1,6 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
 
@@ -9,11 +8,11 @@ import {Router} from "@angular/router";
 })
 export class AuthenticationService {
   model = 'auth/login';
-  isAuthenticated$ = new BehaviorSubject(false);
+  private _currentUser: string;
 
   constructor(private http: HttpClient, private router: Router) {
-    console.log('SAVED TOKEN: ', this.getToken());
     this.setToken(this.getToken());
+    this.setUser(this.getUser());
   }
 
   getUrl() {
@@ -21,35 +20,45 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail, password) {
-    console.log('usernameOrEmail: ', usernameOrEmail);
-    console.log('password:', password);
     return this.http.post(this.getUrl(), {usernameOrEmail, password});
   }
 
   logout() {
     this.setToken('');
-    this.isAuthenticated$.next(false);
+    this.setUser('');
+    this.currentUser = '';
   }
 
-  isAuthenticatedV2(): Observable<boolean> {
-    if (this.getToken() !== 'null') {
-      return of(true);
+  isAuthenticated(fallback): boolean {
+    if (this.getToken() !== 'null' && this.getToken().length != 0) {
+      return true;
     } else {
-      this.router.navigate(['login']);
-      return of(false);
+      return false;
     }
   }
 
-  // TOKEN
   setToken(token: string) {
     localStorage.setItem('token', token);
-    console.log('SET TOKEN: token', token);
-    console.log('token !== null', token !== 'null');
+  }
 
-    this.isAuthenticated$.next(token !== 'null'); // Could be more Robust
+  setUser(currentUser: string) {
+    localStorage.setItem('currentUser', currentUser);
+    this.currentUser = currentUser;
   }
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  getUser() {
+    return localStorage.getItem('currentUser');
+  }
+
+  get currentUser(): string {
+    return this._currentUser;
+  }
+
+  set currentUser(user) {
+    this._currentUser = user;
   }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { MessageService } from 'primeng/components/common/messageservice';
+import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ export class AppComponent {
   msgs = '';
   title = 'Ebanking';
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,
+              private authenticationService: AuthenticationService) { }
 
   addSingle() {
     this.messageService.add({ severity: 'success', summary: 'Service Message', detail: '' });
