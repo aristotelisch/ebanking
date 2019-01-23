@@ -29,10 +29,13 @@ export class AuthenticationService {
     this.currentUser = '';
   }
 
-  isAuthenticated(fallback): boolean {
+  isAuthenticated(fallback?: Function): boolean {
     if (this.getToken() !== 'null' && this.getToken().length != 0) {
       return true;
     } else {
+      if (fallback) {
+        fallback();
+      }
       return false;
     }
   }
