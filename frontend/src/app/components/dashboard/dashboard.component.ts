@@ -11,20 +11,19 @@ import { first } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  get currentUser(): string {
-    console.log('ON DASHBOARD: ', this.authenticationService.currentUser);
-    return this.authenticationService.currentUser;
-  }
+  currentUser: string;
+  private sub: Subscription;
 
   constructor(private authenticationService: AuthenticationService) {
   }
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    // this.currentUserSubscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   ngOnInit() {
-
+    this.sub = this.authenticationService.currentUserSource$.subscribe(currentUser => {
+      this.currentUser = currentUser;
+    })
   }
 }

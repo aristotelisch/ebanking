@@ -15,7 +15,7 @@
       <div *ngIf="this.authentication.isAuthenticated(); then logoutTemplate"></div>
       <ng-template #logoutTemplate>
         <a href="#" class="nav-item nav-link">User is: {{currentUser}}</a>
-        <a  class="nav-item nav-link" (click)="logout()">
+        <a class="nav-item nav-link logout-link" (click)="logout()">
           Logout
           <span class="sr-only">(current)</span>
         </a>

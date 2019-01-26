@@ -2,13 +2,19 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   model = 'auth/login';
-  private _currentUser: string;
+  private currentUserSource = new BehaviorSubject(null);
+  public currentUserSource$ = this.currentUserSource.asObservable();
+
+  public onCurrentUserChange(user) {
+    this.currentUserSource.next(user);
+  }
 
   constructor(private http: HttpClient, private router: Router) {
     this.setToken(this.getToken());
@@ -26,7 +32,7 @@ export class AuthenticationService {
   logout() {
     this.setToken('');
     this.setUser('');
-    this.currentUser = '';
+    this.onCurrentUserChange('');
   }
 
   isAuthenticated(fallback?: Function): boolean {
@@ -46,7 +52,7 @@ export class AuthenticationService {
 
   setUser(currentUser: string) {
     localStorage.setItem('currentUser', currentUser);
-    this.currentUser = currentUser;
+    this.onCurrentUserChange(currentUser);
   }
 
   getToken() {
@@ -55,13 +61,5 @@ export class AuthenticationService {
 
   getUser() {
     return localStorage.getItem('currentUser');
-  }
-
-  get currentUser(): string {
-    return this._currentUser;
-  }
-
-  set currentUser(user) {
-    this._currentUser = user;
   }
 }
