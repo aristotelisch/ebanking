@@ -37,6 +37,15 @@ public class User {
       inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
+  @ManyToMany(cascade = {CascadeType.ALL})
+  @JoinTable(
+          name = "users_accounts",
+          joinColumns = { @JoinColumn(name = "user_id") },
+          inverseJoinColumns = { @JoinColumn(name = "account_id") })
+  Set<Account> accounts = new HashSet<> ();
+
+
+
   public User() {}
 
   public User(String firstName, String lastName, String username, String email, String password) {
