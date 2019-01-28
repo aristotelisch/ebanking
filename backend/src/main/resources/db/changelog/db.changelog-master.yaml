@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/changes/v0001-baseline.sql
+      file: db/changelog/changes/liquibase-outputChangeLoq.postgresql.yaml
+  - include:
+      file: db/changelog/changes/add_roles.sql
+  - include:
+      file: db/changelog/changes/0003_add_notes_column_to_accounts.sql
+  - include:
+      file: db/changelog/changes/0004_add_created_at.sql
