@@ -1,5 +1,6 @@
 package eu.happybit.konchris.koncrisbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
@@ -37,12 +38,13 @@ public class User {
       inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
-  @ManyToMany(cascade = {CascadeType.ALL})
+  @JsonManagedReference
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
           name = "users_accounts",
           joinColumns = { @JoinColumn(name = "user_id") },
           inverseJoinColumns = { @JoinColumn(name = "account_id") })
-  Set<Account> accounts = new HashSet<> ();
+  private Set<Account> accounts = new HashSet<>();
 
 
 

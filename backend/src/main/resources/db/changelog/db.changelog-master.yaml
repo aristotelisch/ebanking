@@ -7,3 +7,7 @@ databaseChangeLog:
       file: db/changelog/changes/0003_add_notes_column_to_accounts.sql
   - include:
       file: db/changelog/changes/0004_add_created_at.sql
+  - include:
+      file: db/changelog/changes/0005_change_account_seq.sql
+  - include:
+      file: db/changelog/changes/0006_add_account_type_column.sql
