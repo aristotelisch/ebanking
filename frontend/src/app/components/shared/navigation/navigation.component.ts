@@ -1,4 +1,4 @@
-import {AuthenticationService} from 'src/app/services/authentication.service';
+import {AuthenticationService} from 'src/app/services/auth/authentication.service';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subscription} from "rxjs";
@@ -19,7 +19,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.authentication.currentUserSource$.subscribe(currentUser => {
       this.currentUser = currentUser;
-    })
+    });
   }
 
 

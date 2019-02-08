@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from 'primeng/components/common/messageservice';
-import {AuthenticationService} from 'src/app/services/authentication.service';
+import {AuthenticationService} from 'src/app/services/auth/authentication.service';
 
 
 @Component({
@@ -31,12 +31,12 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
-    })
+    });
   }
 
   public hasError = (controlName: string, errorName: string) => {
     return this.loginForm.controls[controlName].hasError(errorName);
-  };
+  }
 
   login(loginFormValues) {
     console.log('ON SUBMIT');

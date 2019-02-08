@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 
@@ -36,7 +36,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated(fallback?: Function): boolean {
-    if (this.getToken() !== 'null' && this.getToken().length != 0) {
+    if (this.getToken() !== 'null' && this.getToken().length !== 0) {
       return true;
     } else {
       if (fallback) {
