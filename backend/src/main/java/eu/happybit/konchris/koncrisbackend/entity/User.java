@@ -19,9 +19,9 @@ public class User {
   @Id @GeneratedValue private Long id;
 
   @NotBlank private String firstName;
-
   @NotBlank private String lastName;
-
+  private String address;
+  private String phone;
   @NaturalId @Email @NotBlank private String email;
 
   @Column(unique = true)
@@ -46,8 +46,6 @@ public class User {
           inverseJoinColumns = { @JoinColumn(name = "account_id") })
   private Set<Account> accounts = new HashSet<>();
 
-
-
   public User() {}
 
   public User(String firstName, String lastName, String username, String email, String password) {
@@ -57,4 +55,5 @@ public class User {
     this.email = email;
     this.password = password;
   }
+
 }
