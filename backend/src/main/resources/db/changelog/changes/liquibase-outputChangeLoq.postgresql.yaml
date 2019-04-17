@@ -1,0 +1,197 @@
+databaseChangeLog:
+- changeSet:
+    id: 1548616965531-1
+    author: telis (generated)
+    changes:
+    - createSequence:
+        sequenceName: account_seq
+- changeSet:
+    id: 1548616965531-2
+    author: telis (generated)
+    changes:
+    - createSequence:
+        sequenceName: hibernate_sequence
+- changeSet:
+    id: 1548616965531-3
+    author: telis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: accounts_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: description
+            type: VARCHAR(255)
+        tableName: accounts
+- changeSet:
+    id: 1548616965531-4
+    author: telis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: roles_pkey
+            name: id
+            type: BIGSERIAL
+        - column:
+            name: name
+            type: VARCHAR(60)
+        tableName: roles
+- changeSet:
+    id: 1548616965531-5
+    author: telis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_roles_pkey
+            name: user_id
+            type: BIGINT
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_roles_pkey
+            name: role_id
+            type: BIGINT
+        tableName: user_roles
+- changeSet:
+    id: 1548616965531-6
+    author: telis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: users_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: email
+            type: VARCHAR(255)
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            name: password
+            type: VARCHAR(100)
+        - column:
+            name: username
+            type: VARCHAR(255)
+        tableName: users
+- changeSet:
+    id: 1548616965531-7
+    author: telis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: users_accounts_pkey
+            name: user_id
+            type: BIGINT
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: users_accounts_pkey
+            name: account_id
+            type: BIGINT
+        tableName: users_accounts
+- changeSet:
+    id: 1548616965531-8
+    author: telis (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: uk_nb4h0p6txrmfc0xbrd1kglp9t
+        tableName: roles
+- changeSet:
+    id: 1548616965531-9
+    author: telis (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: username
+        constraintName: uk_r43af9ap4edm43mmtq01oddj6
+        tableName: users
+- changeSet:
+    id: 1548616965531-10
+    author: telis (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: uk_sx468g52bpetvlad2j9y0lptc
+        tableName: users
+- changeSet:
+    id: 1548616965531-11
+    author: telis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: users_accounts
+        constraintName: fkd8emsqvyyvmxgfg90ylpu9nnx
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1548616965531-12
+    author: telis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_id
+        baseTableName: user_roles
+        constraintName: fkh8ciramu9cc9q3qcqiv4ue8a6
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: roles
+        validate: true
+- changeSet:
+    id: 1548616965531-13
+    author: telis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_roles
+        constraintName: fkhfh9dx7w3ubf1co1vdev94g3f
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1548616965531-14
+    author: telis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: users_accounts
+        constraintName: fkm8oyohs2rjpfshb3gd0q1j5v0
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: accounts
+        validate: true
+

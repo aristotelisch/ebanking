@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -10,21 +10,20 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  public currentUser: User;
-  currentUserSubscription: Subscription;
+
+  currentUser: string;
+  private sub: Subscription;
 
   constructor(private authenticationService: AuthenticationService) {
   }
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.currentUserSubscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.sub = this.authenticationService.currentUserSource$.subscribe(currentUser => {
+      this.currentUser = currentUser;
+    })
   }
-
 }
