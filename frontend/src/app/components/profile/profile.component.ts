@@ -35,14 +35,18 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.sub = this.authentication.currentUserSource$.subscribe(currentUser => {
       this.currentUser = currentUser;
-      this.profile = this.profileService.getProfile();
-      this.profileForm.controls['email'].setValue(this.profile.email);
-      this.profileForm.controls['userName'].setValue(this.profile.userName);
-      this.profileForm.controls['firstName'].setValue(this.profile.firstName);
-      this.profileForm.controls['lastName'].setValue(this.profile.lastName);
-      this.profileForm.controls['phone'].setValue(this.profile.phone);
-      this.profileForm.controls['mobile'].setValue(this.profile.mobile);
-      this.profileForm.controls['address'].setValue(this.profile.address);
+      // this.profile = this.profileService.getProfile();
+      this.profileService.getProfile()
+        .subscribe(profile => {
+          this.profile = profile;
+          this.profileForm.controls['email'].setValue(this.profile.email);
+          this.profileForm.controls['userName'].setValue(this.profile.userName);
+          this.profileForm.controls['firstName'].setValue(this.profile.firstName);
+          this.profileForm.controls['lastName'].setValue(this.profile.lastName);
+          this.profileForm.controls['phone'].setValue(this.profile.phone);
+          this.profileForm.controls['mobile'].setValue(this.profile.mobile);
+          this.profileForm.controls['address'].setValue(this.profile.address);
+        });
     });
   }
 

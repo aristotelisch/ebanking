@@ -21,13 +21,14 @@ import {
   MatCardModule,
   MatCardTitle,
   MatCheckboxModule,
-  MatFormFieldModule, MatInputModule
+  MatFormFieldModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule
 } from '@angular/material';
 import {AuthGuardService} from './services/auth/auth-guard.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HelpComponent } from './components/help/help.component';
 import {AccordionModule} from 'primeng/primeng';
-import {ProfileService} from "./services/profile/profile.service";
+import {ProfileService} from './services/profile/profile.service';
+import { TransactionsComponent } from './components/transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {ProfileService} from "./services/profile/profile.service";
     NavigationComponent,
     NotificationComponent,
     ProfileComponent,
-    HelpComponent
+    HelpComponent,
+    TransactionsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,9 @@ import {ProfileService} from "./services/profile/profile.service";
     ReactiveFormsModule,
     HttpClientModule,
     CardModule, AccordionModule,
-    MatButtonModule, MatCheckboxModule, MatCardModule, MatFormFieldModule, MatInputModule
+    MatButtonModule, MatCheckboxModule, MatCardModule,
+    MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
+    MatTableModule, MatPaginatorModule, MatSortModule
   ],
   providers: [MessageService, AuthGuardService, ProfileService],
   bootstrap: [AppComponent]

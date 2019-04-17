@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:8080/api/',
+  // apiEndpoint: 'http://localhost:8080/api/',
+  apiEndpoint: 'https://291c8f37-8434-49a9-a8e3-f1a9c5a5f28c.mock.pstmn.io/'
 };
 
 /*
