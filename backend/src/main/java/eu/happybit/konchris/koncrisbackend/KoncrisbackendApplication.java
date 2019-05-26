@@ -1,9 +1,6 @@
 package eu.happybit.konchris.koncrisbackend;
 
-import eu.happybit.konchris.koncrisbackend.entity.Account;
-import eu.happybit.konchris.koncrisbackend.entity.Role;
-import eu.happybit.konchris.koncrisbackend.entity.RoleName;
-import eu.happybit.konchris.koncrisbackend.entity.User;
+import eu.happybit.konchris.koncrisbackend.entity.*;
 import eu.happybit.konchris.koncrisbackend.repository.AccountRepository;
 import eu.happybit.konchris.koncrisbackend.repository.RoleRepository;
 import eu.happybit.konchris.koncrisbackend.repository.UserRepository;
@@ -63,6 +60,8 @@ public class KoncrisbackendApplication implements CommandLineRunner {
 
     Account account = new Account();
     account.setDescription("My new savings account");
+    account.setIban("GR1232133123123312312312321312");
+    account.setType(AccountType.SAVINGS);
     accountRepository.save(account);
     Set<Account> accounts = new HashSet<>();
     accounts.add(account);
