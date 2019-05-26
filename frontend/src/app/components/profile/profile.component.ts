@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    userName: ['', [Validators.required]],
+    username: ['', [Validators.required]],
     phone: ['', [Validators.required]],
     mobile: ['', ],
     address: ['', [Validators.required]],
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     private authentication: AuthenticationService,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.sub = this.authentication.currentUserSource$.subscribe(currentUser => {
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(profile => {
           this.profile = profile;
           this.profileForm.controls['email'].setValue(this.profile.email);
-          this.profileForm.controls['userName'].setValue(this.profile.userName);
+          this.profileForm.controls['username'].setValue(this.profile.username);
           this.profileForm.controls['firstName'].setValue(this.profile.firstName);
           this.profileForm.controls['lastName'].setValue(this.profile.lastName);
           this.profileForm.controls['phone'].setValue(this.profile.phone);
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('profileForm.value:', this.profileForm.value);
+    console.log('profileForm.value!:', this.profileForm.value);
     this.profileService.updateProfile(this.profileForm.value);
   }
 

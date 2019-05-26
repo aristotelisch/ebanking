@@ -1,6 +1,6 @@
 import {Component, HostListener} from '@angular/core';
 import { MessageService } from 'primeng/components/common/messageservice';
-import {AuthenticationService} from "./services/auth/authentication.service";
+import {AuthenticationService} from './services/auth/authentication.service';
 
 @Component({
   selector: 'app-root',

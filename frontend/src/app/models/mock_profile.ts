@@ -2,7 +2,7 @@ import {Profile} from './profile';
 
 export let mock_profile: Profile = {
   email: 'dev@example.com',
-  userName: 'dev',
+  username: 'dev',
   firstName: 'Jane',
   lastName: 'Doe',
   phone: '00302108888888',

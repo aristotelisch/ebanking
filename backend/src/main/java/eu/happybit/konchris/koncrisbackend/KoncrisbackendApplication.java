@@ -48,6 +48,8 @@ public class KoncrisbackendApplication implements CommandLineRunner {
       user.get().setLastName("Doe");
       user.get().setEmail("dev@example.com");
       user.get().setUsername("dev");
+      user.get().setPhoto("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y");
+      user.get().setPhone("123456789");
       user.get().setPassword(passwordEncoder.encode("dev"));
 
       Optional<Role> role = roleRepository.findByName(RoleName.ROLE_ADMIN);
