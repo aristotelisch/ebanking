@@ -7,14 +7,14 @@
   </button>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a *ngIf="!this.authentication.isAuthenticated()" class="nav-item nav-link" routerLinkActive="active"
+      <a *ngIf="!isAuthenticated()" class="nav-item nav-link" routerLinkActive="active"
                                                         routerLink="/login">
         <i class="fa fa-sign-in" aria-hidden="true"></i>
          Login
         <span class="sr-only">(current)</span>
       </a>
 
-        <div *ngIf="this.authentication.isAuthenticated(); then logoutTemplate"></div>
+        <div *ngIf="isAuthenticated(); then logoutTemplate"></div>
         <ng-template #logoutTemplate>
           <a href="" routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">User is: {{currentUser}}</a>
           <a class="nav-item nav-link" routerLink="/help" routerLinkActive="active">

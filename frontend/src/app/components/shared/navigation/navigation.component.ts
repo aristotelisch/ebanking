@@ -22,6 +22,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     });
   }
 
+  isAuthenticated() {
+    return this.authentication.isAuthenticated();
+  }
 
   logout() {
     this.authentication.logout();
