@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,6 +26,10 @@ public class Account {
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
+  @NotBlank
+  @Column(name = "iban", updatable = false, nullable = false)
+  private String iban;
+
   private String description;
 
   private String note;
@@ -36,12 +41,27 @@ public class Account {
 
   @UpdateTimestamp private Instant updated_at;
 
+  public AccountType getType() {
+    return type;
+  }
+
+  public void setType(AccountType type) {
+    this.type = type;
+  }
+  public String getIban() {
+    return iban;
+  }
+
+  public void setIban(String iban) {
+    this.iban = iban;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Account account = (Account) o;
-    return id.equals(account.id);
+    return id.equals(account.id) || iban.equals(account.iban);
   }
 
   @Override

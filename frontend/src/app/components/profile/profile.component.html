@@ -6,7 +6,7 @@
   <div class="col-sm-3"><!-- Image Column -->
 
     <div class="text-center">
-      <img src="assets/avatars/{{profile.photo || 'default.jpg'}}" class="avatar img-circle img-thumbnail" alt="avatar">
+      <img src="{{profile?.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=yk'}}" class="avatar img-circle img-thumbnail" alt="avatar">
     </div>
     <br>
 
@@ -74,7 +74,7 @@
           </div>
           <div class="form-group col-sm-6">
             <label><h4>Username</h4></label>
-            <input type="text" class="form-control" formControlName="userName" readonly>
+            <input type="text" class="form-control" formControlName="username" readonly>
           </div>
         </div>
 

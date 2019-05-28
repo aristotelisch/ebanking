@@ -12,7 +12,7 @@
         <relativePath />
     </parent>
     <modules>
-        <module>frontend</module>
+          <!--<module>frontend</module>-->
         <module>backend</module>
     </modules>
 </project>

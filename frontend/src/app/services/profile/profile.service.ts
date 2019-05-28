@@ -1,38 +1,53 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Profile} from '../../models/profile';
 import {mock_profile} from '../../models/mock_profile';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
+import {AuthenticationService} from '../auth/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  model = 'auth/profile';
+  model = 'profiles';
   // profile: Profile;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
     // this.profile = this.getProfile();
   }
 
   geturl() {
-    // return `${environment.apiEndpoint}${this.model}`;
-    return 'https://demo2601692.mockable.io/auth/profile';
+    return `${environment.apiEndpoint}${this.model}`;
+    // return 'https://demo2601692.mockable.io/auth/profile';
   }
 
-  getProfile(): any {
-    return this.httpClient.get(this.geturl());
+  updateUrl() {
+    return `${environment.apiEndpoint}${this.model}/`;
+   }
+  headers() {
+    const headers = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${this.authenticationService.getToken()}`)
+    };
+    return headers;
+  }
+  getProfile(): Observable<any> {
+    return this.httpClient.get(this.geturl() + '/' + this.authenticationService.getUser(), this.headers());
     // return of(mock_profile);
   }
 
   updateProfile(profile: Profile) {
-    mock_profile.address = profile.address;
-    mock_profile.firstName = profile.firstName;
-    mock_profile.lastName = profile.lastName;
-    mock_profile.mobile = profile.mobile;
-    mock_profile.phone = profile.phone;
-    // email and username are readonly
+    return this.httpClient.post<Profile>(this.updateUrl(), profile, this.headers()).subscribe(
+        res => {
+          console.log('received ok response from patch request');
+        },
+        error => {
+          console.error('There was an error during the request');
+          console.log(error);
+        });
+
+    console.log('request sent. Waiting for response...');
   }
 }
