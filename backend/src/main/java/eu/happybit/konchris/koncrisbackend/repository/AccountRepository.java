@@ -6,4 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "accounts", path = "/api/accounts")
 public interface AccountRepository extends CrudRepository<Account, Long> {
+
 }

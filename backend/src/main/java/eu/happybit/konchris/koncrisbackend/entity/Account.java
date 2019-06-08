@@ -3,7 +3,9 @@ package eu.happybit.konchris.koncrisbackend.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,18 +15,23 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "accounts")
+@Data
 public class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_generator")
   @SequenceGenerator(name = "account_generator", sequenceName = "account_seq", allocationSize = 50)
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
+
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+  private Set<Transaction> transactions;
+
+  @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Transaction> receiverTransactions;
 
   @NotBlank
   @Column(name = "iban", updatable = false, nullable = false)
@@ -41,20 +48,8 @@ public class Account {
 
   @UpdateTimestamp private Instant updated_at;
 
-  public AccountType getType() {
-    return type;
-  }
-
-  public void setType(AccountType type) {
-    this.type = type;
-  }
-  public String getIban() {
-    return iban;
-  }
-
-  public void setIban(String iban) {
-    this.iban = iban;
-  }
+  @org.hibernate.annotations.ColumnDefault("0.0")
+  private double initialBalance;
 
   @Override
   public boolean equals(Object o) {
@@ -84,51 +79,18 @@ public class Account {
 
   public Account() {}
 
-  public Long getId() {
-    return id;
-  }
+  public Double calculateBalance() {
+    Double credit;
+    Double debit;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    debit =
+        this.getTransactions().stream().map(Transaction::getAmount).reduce(Double::sum).orElse(0.0);
+    credit =
+        this.getReceiverTransactions().stream()
+            .map(Transaction::getAmount)
+            .reduce(Double::sum)
+            .orElse(0.0);
 
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public String getNote() {
-    return note;
-  }
-
-  public void setNote(String note) {
-    this.note = note;
-  }
-
-  public Instant getCreated_at() {
-    return created_at;
-  }
-
-  public void setCreated_at(Instant created_at) {
-    this.created_at = created_at;
-  }
-
-  public Instant getUpdated_at() {
-    return updated_at;
-  }
-
-  public void setUpdated_at(Instant updated_at) {
-    this.updated_at = updated_at;
-  }
-
-  public Set<User> getUsers() {
-    return users;
-  }
-
-  public void setUsers(Set<User> users) {
-    this.users = users;
+    return initialBalance + credit - debit;
   }
 }

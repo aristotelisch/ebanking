@@ -9,7 +9,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -135,6 +137,11 @@ public class User {
           inverseJoinColumns = { @JoinColumn(name = "account_id") })
   private Set<Account> accounts = new HashSet<>();
 
+  @OneToMany(mappedBy = "user",
+          cascade = CascadeType.ALL,
+          orphanRemoval = true)
+  private List<Transaction> transactions = new ArrayList<> ();
+
   public User() {}
 
   public User(String firstName, String lastName) {
@@ -148,6 +155,10 @@ public class User {
     this.username = username;
     this.email = email;
     this.password = password;
+  }
+
+  public String getFullName() {
+    return firstName + " " + lastName;
   }
 
 }
