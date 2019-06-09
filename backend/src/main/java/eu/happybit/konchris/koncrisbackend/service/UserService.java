@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -14,7 +17,6 @@ import java.util.Optional;
 public class UserService {
   @Autowired
   UserRepository userRepository;
-
   @Autowired
   PasswordEncoder passwordEncoder;
 
@@ -28,9 +30,25 @@ public class UserService {
     user.get().setUsername(username);
     user.get().setAddress (address);
     user.get().setPhone(phone);
-//      // Create the correct gravatar url to save to the photo field
-//      // TODO: theUser.setPhoto();
-      userRepository.save(user.get());
-      return user.get();
+    user.get().setPhoto(UserService.getGravatarUrl(email));
+
+    userRepository.save(user.get());
+
+    return user.get();
+  }
+
+   public static String getGravatarUrl(String email) {
+    String baseUrl = "https://www.gravatar.com/avatar/";
+    StringBuilder gravatarUrlBuilder = new StringBuilder(baseUrl);
+    String emailHash;
+
+    try {
+      emailHash = DigestUtils.md5DigestAsHex (new ByteArrayInputStream (email.getBytes ()));
+    } catch (IOException ex) {
+      emailHash = "";
+    }
+
+    gravatarUrlBuilder.append (emailHash);
+    return gravatarUrlBuilder.toString();
   }
 }
