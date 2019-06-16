@@ -1,5 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.account-card {
+  max-width: 400px;
+  float: left;
+  margin-right: 30px;
+}
+.payments-panel {
+  margin-top: 60px;
+}
+.accounts-list {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 
 .ui-messages-error {
   color: red;

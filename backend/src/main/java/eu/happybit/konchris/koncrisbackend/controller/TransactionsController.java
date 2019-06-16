@@ -5,9 +5,12 @@ import eu.happybit.konchris.koncrisbackend.entity.User;
 import eu.happybit.konchris.koncrisbackend.payload.TransactionListResponse;
 import eu.happybit.konchris.koncrisbackend.payload.TransactionResponse;
 import eu.happybit.konchris.koncrisbackend.repository.TransactionsRepository;
+import eu.happybit.konchris.koncrisbackend.service.TransactionDTO;
+import eu.happybit.konchris.koncrisbackend.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +19,10 @@ import java.util.Optional;
 public class TransactionsController {
   @Autowired
   TransactionsRepository transactionsRepository;
+
+  @Autowired
+  TransactionService transactionService;
+
 
   @GetMapping("/")
   public TransactionListResponse getTransactionList() {
@@ -26,5 +33,10 @@ public class TransactionsController {
   public TransactionResponse getTransaction(@PathVariable("id") Long id) {
 
     return new TransactionResponse (transactionsRepository.findById (id).get());
+  }
+
+  @PostMapping("/")
+  public Transaction saveAccount(@Valid @RequestBody TransactionDTO transactionDTO) {
+    return transactionService.createTransaction(transactionDTO);
   }
 }

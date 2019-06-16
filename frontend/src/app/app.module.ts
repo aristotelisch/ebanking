@@ -1,5 +1,4 @@
 import { MessageService } from 'primeng/components/common/messageservice';
-import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,21 +13,30 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { ProfileComponent } from './components/profile/profile.component';
+import { HelpComponent } from './components/help/help.component';
+import { AccordionModule } from 'primeng/primeng';
+import { ProfileService } from './services/profile/profile.service';
+import { TransactionsComponent } from './components/transactions/transactions.component';
+import { AccountsListComponent } from './components/accounts-list/accounts-list.component';
+import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import {
   MatButtonModule,
   MatCard,
   MatCardModule,
   MatCardTitle,
   MatCheckboxModule,
-  MatFormFieldModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule
 } from '@angular/material';
-import {AuthGuardService} from './services/auth/auth-guard.service';
-import { ProfileComponent } from './components/profile/profile.component';
-import { HelpComponent } from './components/help/help.component';
-import {AccordionModule} from 'primeng/primeng';
-import {ProfileService} from './services/profile/profile.service';
-import { TransactionsComponent } from './components/transactions/transactions.component';
+import {TransactionsTableComponent} from './components/transactions-table/transactions-table.component';
+import { PaymentsComponent } from './components/payments/payments.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +47,12 @@ import { TransactionsComponent } from './components/transactions/transactions.co
     NotificationComponent,
     ProfileComponent,
     HelpComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    AccountsListComponent,
+    AccountDetailsComponent,
+    TransactionsTableComponent,
+    TransactionsTableComponent,
+    PaymentsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,12 +63,19 @@ import { TransactionsComponent } from './components/transactions/transactions.co
     MessageModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CardModule, AccordionModule,
-    MatButtonModule, MatCheckboxModule, MatCardModule,
-    MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
-    MatTableModule, MatPaginatorModule, MatSortModule
+    CardModule,
+    AccordionModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [MessageService, AuthGuardService, ProfileService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
