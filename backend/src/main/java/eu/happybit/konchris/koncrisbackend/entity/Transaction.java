@@ -17,7 +17,7 @@ public class Transaction {
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
-  @Column(name = "sender_name", updatable = false, nullable = false)
+  @Column(name = "sender_name", updatable = false, nullable = true)
   private String senderName;
 
   @ManyToOne(fetch = FetchType.LAZY)

@@ -16,6 +16,7 @@
 
         <div *ngIf="isAuthenticated(); then logoutTemplate"></div>
         <ng-template #logoutTemplate>
+          <a href="" routerLink="/payments" routerLinkActive="active" class="nav-item nav-link">Make a Transfer</a>
           <a href="" routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">User is: {{currentUser}}</a>
           <a class="nav-item nav-link" routerLink="/help" routerLinkActive="active">
             <i class="fa fa-question-circle"></i>

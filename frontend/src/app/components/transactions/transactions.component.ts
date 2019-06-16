@@ -1,20 +1,20 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort} from '@angular/material';
-import {HttpClient} from '@angular/common/http';
-import {merge} from 'rxjs/internal/observable/merge';
-import {startWith} from 'rxjs/internal/operators/startWith';
-import {switchMap} from 'rxjs/internal/operators/switchMap';
-import {of} from 'rxjs/internal/observable/of';
-import {Observable} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator, MatSort } from "@angular/material";
+import { HttpClient } from "@angular/common/http";
+import { merge } from "rxjs/internal/observable/merge";
+import { startWith } from "rxjs/internal/operators/startWith";
+import { switchMap } from "rxjs/internal/operators/switchMap";
+import { of } from "rxjs/internal/observable/of";
+import { Observable } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-transactions',
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss']
+  selector: "app-transactions",
+  templateUrl: "./transactions.component.html",
+  styleUrls: ["./transactions.component.scss"]
 })
 export class TransactionsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
+  displayedColumns: string[] = ["created", "state", "number", "amount"];
   exampleDatabase: ExampleHttpDatabase | null;
   data: GithubIssue[] = [];
 
@@ -31,7 +31,7 @@ export class TransactionsComponent implements AfterViewInit {
     this.exampleDatabase = new ExampleHttpDatabase(this.http);
 
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
@@ -39,7 +39,10 @@ export class TransactionsComponent implements AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.exampleDatabase.getRepoIssues(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex);
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex
+          );
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -55,7 +58,8 @@ export class TransactionsComponent implements AfterViewInit {
           this.isRateLimitReached = true;
           return of([]);
         })
-      ).subscribe(data => this.data = data);
+      )
+      .subscribe(data => (this.data = data));
   }
 }
 
@@ -75,11 +79,17 @@ export interface GithubIssue {
 export class ExampleHttpDatabase {
   constructor(private http: HttpClient) {}
 
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-      `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
+  getRepoIssues(
+    sort: string,
+    order: string,
+    page: number
+  ): Observable<GithubApi> {
+    const href = "https://api.github.com/search/issues";
+    const requestUrl = `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page +
+      1}`;
 
     return this.http.get<GithubApi>(requestUrl);
   }
+
+
 }

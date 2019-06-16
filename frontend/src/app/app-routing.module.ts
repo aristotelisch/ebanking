@@ -5,11 +5,14 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {AuthGuardService} from './services/auth/auth-guard.service';
 import {HelpComponent} from './components/help/help.component';
+import {PaymentsComponent} from './components/payments/payments.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
+  {path: 'payments', component: PaymentsComponent, pathMatch: 'full'},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService], pathMatch: 'full'},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService], pathMatch: 'full'},
   {path: 'help', component: HelpComponent, canActivate: [AuthGuardService], pathMatch: 'full'},
 ];

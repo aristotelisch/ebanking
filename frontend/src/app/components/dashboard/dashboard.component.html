@@ -1,13 +1,18 @@
 <div class="greeting row">
   <div class="col">
-    <h1>Hi {{currentUser}}</h1>
+    <h1>Hi {{ currentUser }}</h1>
     <p>You're logged in !!</p>
   </div>
 </div>
 
+<div class="accounts row">
+  <div class="col">
+    <app-accounts-list></app-accounts-list>
+  </div>
+</div>
 
 <div class="transactions row">
   <div class="col">
-    <app-transactions></app-transactions>
+    <app-transactions-table></app-transactions-table>
   </div>
 </div>
