@@ -111,6 +111,12 @@
             <version>0.10.5</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>3.0.9</version>
+        </dependency>
     </dependencies>
 
     <build>
