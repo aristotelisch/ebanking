@@ -13,14 +13,16 @@ import {PaymentsService} from '../../services/payments.service';
 export class PaymentsComponent implements OnInit {
   currentUser: string ;
   private sub: Subscription;
+  accounts = [];
 
   transferForm = this.fb.group({
     email: ['dev@example.com', [Validators.required, Validators.email]],
-    amount: ['', [Validators.required]],
+    amount: ['', [Validators.required, Validators.min(0.01), Validators.max(this.maxAmount())]],
     fromIban: ['', [Validators.required]],
     toIban: ['', [Validators.required]],
     note: [''],
   });
+  selectedFromIban: any;
 
   constructor(
     private profileService: ProfileService,
@@ -30,10 +32,20 @@ export class PaymentsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.profileService.getProfile().subscribe(profile => {
+      this.accounts = profile.accounts;
+    });
   }
 
   onSubmit() {
     console.log('profileForm.value!:', this.transferForm.value);
     this.paymentsService.createTransfer(this.transferForm.value);
+  }
+
+  maxAmount() {
+    if (this.selectedFromIban) {
+      const selectedAccount = this.accounts.find(account => account.iban === this.selectedFromIban);
+      return selectedAccount.balance;
+    }
   }
 }

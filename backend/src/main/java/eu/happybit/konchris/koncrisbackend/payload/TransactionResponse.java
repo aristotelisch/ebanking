@@ -14,16 +14,18 @@ public class TransactionResponse {
   private Double amount;
   private Long userId;
   private String userFullName;
+  private Long createdAt;
 
   public TransactionResponse(Transaction transaction) {
     id = transaction.getUser().getId();
     senderName = transaction.getSenderName();
     accountId = transaction.getAccount().getId();
-    accountIban = transaction.getAccount().getIban ();
+    accountIban = transaction.getAccount().getIban();
     receiverAccountId = transaction.getReceiver().getId();
-    receiverAccountIban = transaction.getReceiver ().getIban ();
+    receiverAccountIban = transaction.getReceiver().getIban();
     amount = transaction.getAmount();
-    userId = transaction.getUser().getId ();
-    userFullName = transaction.getUser ().getFullName();
+    userId = transaction.getUser().getId();
+    userFullName = transaction.getUser().getFullName();
+    createdAt = transaction.getCreated_at().toEpochMilli();
   }
 }

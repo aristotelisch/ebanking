@@ -16,7 +16,8 @@ export class TransactionsTableComponent implements OnInit {
               private transactionsService: TransactionsService) { }
 
   ngOnInit() {
-    this.transactionsService.getTransactionsByUser(2).subscribe(transactions => {
+    const currentUser = this.authenticationService.getUser();
+    this.transactionsService.getTransactionsByUser(currentUser).subscribe(transactions => {
       console.log('transactions', transactions);
       this.transactions = transactions.transactions;
     });

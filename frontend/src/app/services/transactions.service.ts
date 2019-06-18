@@ -14,8 +14,8 @@ export class TransactionsService {
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
 
 
-  getTransactionsByUser(userId: number): Observable<any> {
-    return this.http.get(this.geturl() + '/', this.headers());
+  getTransactionsByUser(userId: string): Observable<any> {
+    return this.http.get(this.geturl() + '/' + `${userId}`, this.headers());
   }
 
   headers() {

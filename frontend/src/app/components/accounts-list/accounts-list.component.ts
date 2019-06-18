@@ -2,6 +2,7 @@ import { AuthenticationService } from 'src/app/services/auth/authentication.serv
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AccountServiceService } from 'src/app/services/account/account-service.service';
+import {ProfileService} from '../../services/profile/profile.service';
 
 @Component({
   selector: 'app-accounts-list',
@@ -15,13 +16,12 @@ export class AccountsListComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private accountsService: AccountServiceService,
-    private authenticationService: AuthenticationService
+    private profileService: ProfileService,
   ) {}
 
   ngOnInit() {
-    this.accountsService.getAccountsByUser(2).subscribe(accountList => {
-      console.log('accounts: ', accountList.accounts);
-      this.accountList = accountList.accounts;
+    this.profileService.getProfile().subscribe(profile => {
+      this.accountList = profile.accounts;
     });
   }
 }

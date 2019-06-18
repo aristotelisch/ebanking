@@ -31,12 +31,13 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatPaginatorModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatSelectModule,
   MatSortModule,
   MatTableModule
 } from '@angular/material';
 import {TransactionsTableComponent} from './components/transactions-table/transactions-table.component';
 import { PaymentsComponent } from './components/payments/payments.component';
+import {CurrencyMaskModule} from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,9 @@ import { PaymentsComponent } from './components/payments/payments.component';
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule,
+    CurrencyMaskModule
   ],
   providers: [MessageService, AuthGuardService, ProfileService],
   bootstrap: [AppComponent]

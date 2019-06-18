@@ -1,73 +1,97 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-4 offset-4">
-          <div class="payments-panel panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                Bank Transfer
-              </h3>
-            </div>
-            <div class="panel-body">
-              <form class="form" role="form" [formGroup]="transferForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                  <label for="fromIban">
-                    From Account (IBAN)
-                  </label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="fromIban" formControlName="fromIban" placeholder="GRXXXXXXXXXXXXXXXX" required autofocus />
-<!--                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
-<!--                    <div *ngIf="!transferForm.controls['fromIban'].valid">-->
-<!--                        <span class="error" *ngIf="transferForm.controls['fromIban'].hasError('required') ">-->
-<!--                           Sender Iban is required-->
-<!--                        </span>-->
-<!--                    </div>-->
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="toIban">
-                    To Account (IBAN)
-                  </label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="toIban" formControlName="toIban" placeholder="GRXXXXXXXXXXXXXXXX" />
-<!--                    <div *ngIf="!transferForm.controls['toIban'].valid">-->
-<!--                        <span class="error" *ngIf="transferForm.controls['toIban'].hasError('required') ">-->
-<!--                           Receipient Iban is required-->
-<!--                        </span>-->
-<!--                    </div>-->
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="amount">
-                    Amount
-                  </label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="0.00 EUR"
-                           autofocus />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="note">
-                    Note to Recipient
-                  </label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="note" formControlName="note" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-5 offset-3">
-                    <button class="transfer-submit-btn btn-block" mat-raised-button color="primary" type="submit">Make Transfer</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <br/>
-<!--          <a href="#" class="btn btn-success btn-lg btn-block" role="button">Transfer</a>-->
-<!--          <button mat-raised-button color="primary" type="submit" [disabled]="!transferForm.valid">Save</button>-->
-<!--          <div>Form Status: {{transferForm.status}}</div>-->
+  <div class="row">
+    <div class="col-xs-12 col-md-4 offset-4">
+      <div class="payments-panel panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Bank Transfer
+          </h3>
         </div>
+        <div class="panel-body">
+          <form class="form" role="form" [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <div class="input-group">
+                <mat-form-field>
+                  <mat-select placeholder="Choose Source Account" [(ngModel)]="selectedFromIban"
+                              formControlName="fromIban" style="width:400px;">
+                    <mat-option *ngFor="let account of accounts" [value]="account.iban">
+                      {{account.iban}} - {{account.balance}} EUR
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngIf="!transferForm.controls['fromIban'].valid && transferForm.controls['fromIban'].dirty">
+                                        <span class="error" *ngIf="transferForm.controls['fromIban'].hasError('required') ">
+                                           Select a source account Iban
+                                        </span>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label for="toIban">
+                To Account (IBAN)
+              </label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="toIban" formControlName="toIban"
+                       placeholder="GRXXXXXXXXXXXXXXXX"/>
+              </div>
+
+              <div *ngIf="!transferForm.controls['toIban'].valid && transferForm.controls['toIban'].touched">
+                                        <span class="error" *ngIf="transferForm.controls['toIban'].hasError('required') ">
+                                           Receipient Iban is required
+                                        </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="amount">
+                Amount
+              </label>
+              <div class="input-group">
+<!--                <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="0.00 EUR"-->
+<!--                       autofocus/>-->
+                <input currencyMask type="text" class="form-control" id="amount" formControlName="amount"
+                       placeholder="0,00" [options]="{ prefix: '€ ', thousands: '.', decimal: ',' }" min="0" max="{{maxAmount()}}" />
+
+
+              </div>
+              <div *ngIf="!transferForm.controls['amount'].valid && transferForm.controls['amount'].touched">
+                                        <span class="error" *ngIf="transferForm.controls['amount'].hasError('required') ">
+                                           Amount should be grater than 0
+                                        </span>
+              </div>
+              <div *ngIf="!transferForm.controls['amount'].valid && transferForm.controls['amount'].touched">
+                                        <span class="error" *ngIf="transferForm.controls['amount'].hasError('max') ">
+                                           You cannot transfer more than your account balance
+                                        </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="note">
+                Note to Recipient
+              </label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="note" formControlName="note"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5 offset-3">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!transferForm.valid">Make Transfer</button>
+<!--                <button class="transfer-submit-btn btn-block" mat-raised-button color="primary" type="submit">Make-->
+<!--                  Transfer-->
+<!--                </button>-->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br/>
+      <!--          <a href="#" class="btn btn-success btn-lg btn-block" role="button">Transfer</a>-->
+      <!--          <button mat-raised-button color="primary" type="submit" [disabled]="!transferForm.valid">Save</button>-->
+      <!--          <div>Form Status: {{transferForm.status}}</div>-->
     </div>
+  </div>
 </div>
 
 
