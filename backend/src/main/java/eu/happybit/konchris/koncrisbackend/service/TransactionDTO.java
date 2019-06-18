@@ -17,9 +17,12 @@ public class TransactionDTO {
   @NotNull
   private Double amount;
 
+  @NotNull
   private String email;
 
   private String note;
+
+  private String created_at;
 
   public TransactionDTO () {
     // Empty constructor needed for Jackson.

@@ -2,6 +2,7 @@ package eu.happybit.konchris.koncrisbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,6 +52,7 @@ public class Account {
   @org.hibernate.annotations.ColumnDefault("0.0")
   private double initialBalance;
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -78,6 +80,11 @@ public class Account {
   }
 
   public Account() {}
+
+  @Transient @JsonProperty
+  private double getBalance() {
+    return calculateBalance();
+  }
 
   public Double calculateBalance() {
     Double credit;

@@ -1,7 +1,9 @@
 package eu.happybit.konchris.koncrisbackend.service;
 
 import com.sendgrid.*;
+import eu.happybit.konchris.koncrisbackend.entity.Account;
 import eu.happybit.konchris.koncrisbackend.entity.Transaction;
+import eu.happybit.konchris.koncrisbackend.entity.User;
 import eu.happybit.konchris.koncrisbackend.repository.AccountRepository;
 import eu.happybit.konchris.koncrisbackend.repository.TransactionsRepository;
 import eu.happybit.konchris.koncrisbackend.repository.UserRepository;
@@ -22,22 +24,28 @@ public class TransactionService {
 
   public Transaction createTransaction(TransactionDTO transactionDTO) {
     Transaction transaction = new Transaction();
-
-    transaction.setAccount(accountRepository.findById((long) 1).get()); // account_id
-    transaction.setSenderName("Test Name");
-    transaction.setNote(transactionDTO.getNote());
-    transaction.setReceiver(accountRepository.findById((long) 2).get()); // Receiver Account id
-    transaction.setAmount(transactionDTO.getAmount());
-    transaction.setUser(
+    Account externalAccount = accountRepository.findByIban("GR1232133123123312312312321999").get();
+    User currentUser =
         userRepository
             .findByUsernameOrEmail(transactionDTO.getEmail(), transactionDTO.getEmail())
-            .get());
+            .get();
+
+    System.out.println (transactionDTO.getFromIban ());
+    Account fromAccount = accountRepository.findByIban(transactionDTO.getFromIban()).get();
+    transaction.setAccount(fromAccount);
+    transaction.setSenderName(currentUser.getFullName());
+    transaction.setNote(transactionDTO.getNote());
+    transaction.setReceiver(
+        accountRepository.findByIban(transactionDTO.getToIban()).orElse(externalAccount)); // Receiver Account id
+    transaction.setAmount(transactionDTO.getAmount());
+    transaction.setUser(currentUser);
     transaction.setExternal(false);
     transactionsRepository.save(transaction);
+
     try {
-      sendEmail (transaction);
+      sendEmail(transaction);
     } catch (IOException ex) {
-      System.out.println (ex);
+      System.out.println(ex);
     }
 
     return transaction;
@@ -58,7 +66,7 @@ public class TransactionService {
                 + " is complete.");
 
     Mail mail = new Mail(from, subject, to, content);
-    SendGrid sg = new SendGrid(System.getenv ("SENDGRID_API_KEY"));
+    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 
     Request request = new Request();
     try {

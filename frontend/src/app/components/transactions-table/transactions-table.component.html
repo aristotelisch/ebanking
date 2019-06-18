@@ -5,11 +5,13 @@
       <th>From</th>
       <th>To</th>
       <th>Amount</th>
+      <th>CreatedAt</th>
   </tr>
   <tr *ngFor="let transaction of transactions">
     <td>{{transaction.id}}</td>
     <td>{{transaction.accountIban}}</td>
     <td>{{transaction.receiverAccountIban}}</td>
     <td>{{transaction.amount}}</td>
+    <td>{{transaction.createdAt | date: 'short'}}</td>
   </tr>
 </table>
