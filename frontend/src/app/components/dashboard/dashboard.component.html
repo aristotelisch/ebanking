@@ -1,7 +1,32 @@
 <div class="greeting row">
-  <div class="col">
-    <h1>Hi {{ currentUser }}</h1>
+  <div class="col-sm-1"><!-- Image Column -->
+    <div class="text-center">
+      <img src="{{profile?.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=yk'}}"
+           class="avatar img-circle img-thumbnail" alt="avatar">
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <h3>Welcome, {{ profile?.firstName }} {{ profile?.lastName}}</h3>
     <p>You're logged in !!</p>
+  </div>
+</div>
+
+<div class="dashboard-navigation row">
+  <div class="col">
+      <div class="account-details">
+          <div class="dashboard-ripple-container mat-elevation-z4 mat-raised-button mat-primary"
+               matRipple
+               [matRippleCentered]='centered'
+               [matRippleDisabled]='disabled'
+               [matRippleUnbounded]='unbounded'
+               [matRippleRadius]='radius'
+               [matRippleColor]='color'>
+
+            <i class="fas fa-money-bill-wave-alt">
+              New Transfer
+            </i>
+          </div>
+      </div>
   </div>
 </div>
 

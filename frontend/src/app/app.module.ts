@@ -31,7 +31,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatPaginatorModule,
-  MatProgressSpinnerModule, MatSelectModule,
+  MatProgressSpinnerModule, MatRippleModule, MatSelectModule,
   MatSortModule,
   MatTableModule
 } from '@angular/material';
@@ -76,7 +76,8 @@ import {CurrencyMaskModule} from 'ng2-currency-mask';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    MatRippleModule
   ],
   providers: [MessageService, AuthGuardService, ProfileService],
   bootstrap: [AppComponent]
