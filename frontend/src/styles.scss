@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+footer {
+  position: fixed;
+  height: 60px;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  text-align: center;
+  padding: 15px;
+}
+
 .mat-form-field-infix {
   width: 400px !important;
 }
