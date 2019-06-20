@@ -77,7 +77,6 @@ import {CurrencyMaskModule} from 'ng2-currency-mask';
     MatSortModule,
     MatSelectModule,
     CurrencyMaskModule,
-    MatRippleModule
   ],
   providers: [MessageService, AuthGuardService, ProfileService],
   bootstrap: [AppComponent]
