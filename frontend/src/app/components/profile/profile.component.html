@@ -23,7 +23,7 @@
             <label><h4>First name</h4></label>
             <input type="text" class="form-control" formControlName="firstName" placeholder="first name"
                    title="enter your first name if any.">
-            <div *ngIf="!profileForm.controls['firstName'].valid">
+            <div *ngIf="!profileForm.controls['firstName'].valid && profileForm.controls['firstName'].touched">
                     <span class="error" *ngIf="profileForm.controls['firstName'].hasError('required') ">
                        First name is required
                     </span>
@@ -33,7 +33,7 @@
             <label><h4>Last name</h4></label>
             <input type="text" class="form-control" formControlName="lastName" placeholder="last name"
                    title="enter your last name if any.">
-            <div *ngIf="!profileForm.controls['lastName'].valid">
+            <div *ngIf="!profileForm.controls['lastName'].valid && profileForm.controls['lastName'].touched">
                     <span class="error" *ngIf="profileForm.controls['lastName'].hasError('required') ">
                        Last name is required
                     </span>
@@ -46,7 +46,7 @@
             <label><h4>Phone</h4></label>
             <input type="text" class="form-control" formControlName="phone" placeholder="enter phone"
                    title="enter your phone number if any.">
-            <div *ngIf="!profileForm.controls['phone'].valid">
+            <div *ngIf="!profileForm.controls['phone'].valid && profileForm.controls['phone'].touched">
                     <span class="error" *ngIf="profileForm.controls['phone'].hasError('required') ">
                        Phone is required
                     </span>
@@ -65,7 +65,7 @@
             <label><h4>Email</h4></label>
             <input type="email" class="form-control" formControlName="email" placeholder="you@email.com"
                    title="enter your email." readonly>
-            <div *ngIf="!profileForm.controls['email'].valid">
+            <div *ngIf="!profileForm.controls['email'].valid && profileForm.controls['email'].touched">
                     <span class="error" *ngIf="profileForm.controls['email'].hasError('required') ">
                        Email is required
                     </span>
@@ -90,7 +90,7 @@
       <hr>
 
     </div><!--/tab-pane-->
-    <div>Form Status: {{profileForm.status}}</div>
+<!--    <div>Form Status: {{profileForm.status}}</div>-->
 
   </div><!--/col-9-->
 </div>

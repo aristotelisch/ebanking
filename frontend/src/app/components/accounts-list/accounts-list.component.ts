@@ -20,6 +20,13 @@ export class AccountsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.refreshData();
+    setInterval(() => {
+      this.refreshData();
+    }, 2000);
+  }
+
+  refreshData() {
     this.profileService.getProfile().subscribe(profile => {
       this.accountList = profile.accounts;
     });

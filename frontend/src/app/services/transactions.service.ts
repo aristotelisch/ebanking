@@ -15,6 +15,7 @@ export class TransactionsService {
 
 
   getTransactionsByUser(userId: string): Observable<any> {
+    console.log('UserId for transaction save is', userId);
     return this.http.get(this.geturl() + '/' + `${userId}`, this.headers());
   }
 

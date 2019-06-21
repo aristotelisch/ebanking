@@ -17,9 +17,10 @@ export class TransactionsTableComponent implements OnInit {
 
   ngOnInit() {
     const currentUser = this.authenticationService.getUser();
-    this.transactionsService.getTransactionsByUser(currentUser).subscribe(transactions => {
-      console.log('transactions', transactions);
-      this.transactions = transactions.transactions;
+    this.refreshTransactions(currentUser);
+
+    setInterval(() => {
+      this.refreshTransactions(currentUser);
     });
   }
 
@@ -29,6 +30,13 @@ export class TransactionsTableComponent implements OnInit {
         .set('Authorization', `Bearer ${this.authenticationService.getToken()}`)
     };
     return headers;
+  }
+
+  refreshTransactions(currentUser) {
+    this.transactionsService.getTransactionsByUser(currentUser).subscribe(transactions => {
+      console.log('transactions', transactions);
+      this.transactions = transactions.transactions;
+    });
   }
 
 }
