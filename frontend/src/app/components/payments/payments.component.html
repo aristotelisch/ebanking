@@ -23,7 +23,7 @@
               </div>
               <div *ngIf="!transferForm.controls['fromIban'].valid && transferForm.controls['fromIban'].dirty">
                                         <span class="error" *ngIf="transferForm.controls['fromIban'].hasError('required') ">
-                                           Select a source account Iban
+                                           Select a source account IBAN
                                         </span>
               </div>
 
@@ -40,7 +40,7 @@
 
               <div *ngIf="!transferForm.controls['toIban'].valid && transferForm.controls['toIban'].touched">
                                         <span class="error" *ngIf="transferForm.controls['toIban'].hasError('required') ">
-                                           Receipient Iban is required
+                                           Recipient IBAN is required
                                         </span>
               </div>
             </div>
@@ -49,8 +49,6 @@
                 Amount
               </label>
               <div class="input-group">
-<!--                <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="0.00 EUR"-->
-<!--                       autofocus/>-->
                 <input currencyMask type="text" class="form-control" id="amount" formControlName="amount"
                        placeholder="0,00" [options]="{ prefix: '€ ', thousands: '.', decimal: ',' }" min="0" max="{{maxAmount()}}" />
 
@@ -70,7 +68,7 @@
 
             <div class="form-group">
               <label for="note">
-                Note to Recipient
+                Note to recipient
               </label>
               <div class="input-group">
                 <input type="text" class="form-control" id="note" formControlName="note"/>
