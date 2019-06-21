@@ -1,12 +1,71 @@
-<div class="greeting row">
-  <div class="col">
-    <h1>Hi {{ currentUser }}</h1>
+<div class="dashboard-navigation row">
+  <div class="col-sm-1"><!-- Image Column -->
+    <div class="text-center">
+      <img src="{{profile?.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=yk'}}"
+           class="avatar img-circle img-thumbnail" alt="avatar">
+    </div>
+  </div>
+  <div class="col-sm-5">
+    <h3>Welcome, {{ profile?.firstName }} {{ profile?.lastName}}</h3>
     <p>You're logged in !!</p>
+  </div>
+  <div class="dashboard-menu-boxes col-sm-6">
+    <div class="row">
+      <div class="col">
+        <a class="btn btn-lg btn-primary" href="" routerLink="/payments" routerLinkActive="active"
+           style="color: white; display: block;" >
+          <svg style="fill: white;" height="25pt" viewBox="-15 0 463 463.152" width="25pt"
+               xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m216.074219 179.574219c-30.925781 0-56 25.074219-56 56 0 30.929687 25.074219 56 56 56 30.929687 0 56-25.070313 56-56-.035157-30.910157-25.085938-55.964844-56-56zm0 96c-22.089844 0-40-17.90625-40-40 0-22.089844 17.910156-40 40-40 22.09375 0 40 17.910156 40 40-.023438 22.082031-17.917969 39.976562-40 40zm0 0"/>
+            <path d="m48.074219 155.574219h16v-16h-24c-4.417969 0-8 3.582031-8 8v24h16zm0 0"/>
+            <path d="m48.074219 299.574219h-16v24c0 4.421875 3.582031 8 8 8h24v-16h-16zm0 0"/>
+            <path
+              d="m.0742188 115.574219v240c0 4.421875 3.5820312 8 8.0000002 8h416c4.421875 0 8-3.578125 8-8v-240c0-4.417969-3.578125-8-8-8h-416c-4.417969 0-8.0000002 3.582031-8.0000002 8zm16.0000002 8h400v224h-400zm0 0"/>
+            <path
+              d="m392.074219 195.574219c-26.496094-.023438-47.972657-21.5-48-48 0-4.417969-3.578125-8-8-8h-240c-4.417969 0-8 3.582031-8 8-.023438 26.5-21.5 47.976562-48 48-4.417969 0-8 3.582031-8 8v64c0 4.421875 3.582031 8 8 8 26.5.027343 47.976562 21.503906 48 48 0 4.421875 3.582031 8 8 8h240c4.421875 0 8-3.578125 8-8 .027343-26.496094 21.503906-47.972657 48-48 4.421875 0 8-3.578125 8-8v-64c0-4.417969-3.578125-8-8-8zm-8 64.496093c-28.980469 3.703126-51.800781 26.523438-55.503907 55.503907h-224.992187c-3.703125-28.980469-26.519531-51.800781-55.503906-55.503907v-48.992187c28.984375-3.703125 51.800781-26.519531 55.503906-55.503906h224.992187c3.703126 28.984375 26.523438 51.800781 55.503907 55.503906zm0 0"/>
+            <path d="m392.074219 139.574219h-24v16h16v16h16v-24c0-4.417969-3.578125-8-8-8zm0 0"/>
+            <path d="m384.074219 315.574219h-16v16h24c4.421875 0 8-3.578125 8-8v-24h-16zm0 0"/>
+            <path
+              d="m108.074219 48.480469 8 13.839843c54.410156-31.375 120.398437-35.367187 178.195312-10.785156l-33.769531 16.878906 7.152344 14.320313 48-24c1.90625-.9375 3.359375-2.601563 4.039062-4.613281.679688-2.015625.53125-4.21875-.414062-6.121094l-24-48-14.320313 7.152344 13.597657 27.199218c-61.078126-23.851562-129.6875-18.65625-186.480469 14.128907zm0 0"/>
+            <path
+              d="m316.074219 414.671875-8-13.839844c-54.40625 31.371094-120.390625 35.367188-178.183594 10.785157l33.769531-16.882813-7.152344-14.320313-48 24c-3.957031 1.976563-5.5625 6.785157-3.582031 10.738282l24 48 14.316407-7.152344-13.597657-27.199219c61.066407 23.835938 129.65625 18.640625 186.429688-14.128906zm0 0"/>
+          </svg>
+          <span class="menu-item"> Transfer </span>
+        </a>
+      </div>
+
+      <div class="col">
+        <a class="btn btn-lg btn-primary btn-block" href="" routerLink="/" >
+          <i class="fas fa-exchange-alt"></i>
+          <span class="menu-item">Payment</span>
+        </a>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col">
+        <a class="btn btn-lg btn-primary btn-block"href="" routerLink="/">
+          <i class="fas fa-credit-card"></i>
+          <span class="menu-item">Credit Card</span>
+        </a>
+      </div>
+      <div class="col">
+        <a class="btn btn-lg btn-primary btn-block" target="_blank" href="http://ebanking-help.happybit.eu">
+          <i class="fas fa-book"></i>
+          <span class="menu-item">Manual</span>
+        </a>
+      </div>
+
+
+    </div>
+
+
   </div>
 </div>
 
 <div class="accounts row">
-  <div class="col">
+  <div class="col-sm-12">
     <app-accounts-list></app-accounts-list>
   </div>
 </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import {Profile} from '../../models/profile';
+import {ProfileService} from '../../services/profile/profile.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +12,13 @@ import { first } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  profile: Profile;
   currentUser: string;
   private sub: Subscription;
+  color = 'purple';
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private profileService: ProfileService) {
   }
 
   ngOnDestroy() {
@@ -23,7 +27,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.authenticationService.currentUserSource$.subscribe(currentUser => {
+      this.profileService.getProfile().subscribe(profile => { this.profile = profile; });
       this.currentUser = currentUser;
-    })
+    });
   }
 }

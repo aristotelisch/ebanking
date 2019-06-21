@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-md-4 offset-4">
+    <div class="col-xs-12 col-md-5 offset-3">
       <div class="payments-panel panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
@@ -13,7 +13,7 @@
               <div class="input-group">
                 <mat-form-field>
                   <mat-select placeholder="Choose Source Account" [(ngModel)]="selectedFromIban"
-                              formControlName="fromIban" style="width:400px;">
+                              formControlName="fromIban" style="width:430px;">
                     <mat-option *ngFor="let account of accounts" [value]="account.iban">
                       {{account.iban}} - {{account.balance}} EUR
                     </mat-option>
@@ -76,20 +76,14 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-5 offset-3">
-                <button mat-raised-button color="primary" type="submit" [disabled]="!transferForm.valid">Make Transfer</button>
-<!--                <button class="transfer-submit-btn btn-block" mat-raised-button color="primary" type="submit">Make-->
-<!--                  Transfer-->
-<!--                </button>-->
+              <div class="col">
+                <button mat-raised-button class="payments-button"color="primary" type="submit" [disabled]="!transferForm.valid">Make Transfer</button>
               </div>
             </div>
           </form>
         </div>
       </div>
       <br/>
-      <!--          <a href="#" class="btn btn-success btn-lg btn-block" role="button">Transfer</a>-->
-      <!--          <button mat-raised-button color="primary" type="submit" [disabled]="!transferForm.valid">Save</button>-->
-      <!--          <div>Form Status: {{transferForm.status}}</div>-->
     </div>
   </div>
 </div>
