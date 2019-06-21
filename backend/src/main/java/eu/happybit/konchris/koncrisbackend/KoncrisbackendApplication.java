@@ -40,56 +40,111 @@ public class KoncrisbackendApplication implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
 
-    Optional<User> user;
+    Optional<User> user1;
+    Optional<User> user2;
 
-    if (userRepository.existsByEmail("dev@example.com")) {
-      user = userRepository.findByEmail("dev@example.com");
+    if (userRepository.existsByEmail("dev1@example.com")) {
+      user1 = userRepository.findByEmail("dev1@example.com");
     } else {
-      user = Optional.of(new User());
-      user.get().setFirstName("John");
-      user.get().setLastName("Doe");
-      user.get().setEmail("dev@example.com");
-      user.get().setUsername("dev");
-      user.get()
+      user1 = Optional.of(new User());
+      user1.get().setFirstName("Dev1");
+      user1.get().setLastName("Dev");
+      user1.get().setEmail("dev1@example.com");
+      user1.get().setUsername("dev1");
+      user1.get()
           .setPhoto("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y");
-      user.get().setPhone("123456789");
-      user.get().setPassword(passwordEncoder.encode("dev"));
+      user1.get().setPhone("123456789");
+      user1.get().setPassword(passwordEncoder.encode("dev"));
 
       Optional<Role> role = roleRepository.findByName(RoleName.ROLE_ADMIN);
       if (role.isPresent()) {
         Set<Role> roles = new HashSet<>();
         roles.add(role.get());
-        user.get().setRoles(roles);
-        userRepository.save(user.get());
+        user1.get().setRoles(roles);
+        userRepository.save(user1.get());
       }
     }
-    Account account2 = new Account();
-    account2.setInitialBalance(300);
-    account2.setDescription("My new checking account");
-    account2.setIban("GR1232133123123312312312321666");
-    account2.setType(AccountType.CHECKING);
-    accountRepository.save(account2);
-    Set<Account> accounts = new HashSet<>();
-    accounts.add(account2);
+    if (userRepository.existsByEmail("dev2@example.com")) {
+      user2 = userRepository.findByEmail("dev2@example.com");
+    } else {
+      user2 = Optional.of(new User());
+      user2.get().setFirstName("Dev2");
+      user2.get().setLastName("Dev");
+      user2.get().setEmail("dev2@example.com");
+      user2.get().setUsername("dev2");
+      user2.get()
+             .setPhoto("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y");
+      user2.get().setPhone("123456789");
+      user2.get().setPassword(passwordEncoder.encode("dev"));
+
+      Optional<Role> role = roleRepository.findByName(RoleName.ROLE_ADMIN);
+
+      if (role.isPresent()) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(role.get());
+        user1.get().setRoles(roles);
+        user2.get().setRoles(roles);
+        userRepository.save(user1.get());
+        userRepository.save(user2.get());
+      }
+    }
+
 
     Account account = new Account();
+    Account account2 = new Account();
+    Set<Account> user1Accounts = new HashSet<>();
+
+    Account account3 = new Account();
+    Account account4 = new Account();
+    Set<Account> user2Accounts = new HashSet<>();
+
+
     account.setInitialBalance(200.0);
-    account.setDescription("My new savings account");
-    account.setIban("GR1232133123123312312312321312");
+    account.setDescription("Savings account");
+    account.setIban("GR1232133123123312312312323331");
     account.setType(AccountType.SAVINGS);
+
+    account2.setInitialBalance(300);
+    account2.setDescription("Checking account");
+    account2.setIban("GR1232133123123312312312323332");
+    account2.setType(AccountType.CHECKING);
+
+    account3.setInitialBalance(500.0);
+    account3.setDescription("Savings account");
+    account3.setIban("GR1232133123123312312312324441");
+    account3.setType(AccountType.SAVINGS);
+
+    account4.setInitialBalance(600);
+    account4.setDescription("Checking account");
+    account4.setIban("GR1232133123123312312312324442");
+    account4.setType(AccountType.CHECKING);
+
+    accountRepository.save(account2);
     accountRepository.save(account);
-    accounts.add(account);
-    if (user.isPresent()) {
-      user.get().setAccounts(accounts);
-      userRepository.save(user.get());
+    user1Accounts.add(account);
+    user1Accounts.add(account2);
+
+    accountRepository.save(account3);
+    accountRepository.save(account4);
+    user2Accounts.add(account3);
+    user2Accounts.add(account4);
+
+    if (user1.isPresent()) {
+      user1.get().setAccounts(user1Accounts);
+      userRepository.save(user1.get());
+    }
+
+    if (user2.isPresent()) {
+      user2.get().setAccounts(user2Accounts);
+      userRepository.save(user2.get());
     }
 
     // Create initial transactions
     Transaction trs = new Transaction();
     trs.setAccount(account);
-    trs.setUser(user.get());
+    trs.setUser(user1.get());
     trs.setAmount(121.0);
-    trs.setSenderName(user.get().getLastName());
+    trs.setSenderName(user1.get().getLastName());
     trs.setReceiver(account2);
     trs.setNote("This is a test note");
     trs.setExternal(false);

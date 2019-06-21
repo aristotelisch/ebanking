@@ -16,7 +16,7 @@ export class PaymentsComponent implements OnInit {
   accounts = [];
 
   transferForm = this.fb.group({
-    email: ['dev@example.com', [Validators.required, Validators.email]],
+    email: ['', [Validators.required]],
     amount: ['', [Validators.required, Validators.min(0.01), Validators.max(this.maxAmount())]],
     fromIban: ['', [Validators.required]],
     toIban: ['', [Validators.required]],
@@ -34,6 +34,9 @@ export class PaymentsComponent implements OnInit {
   ngOnInit() {
     this.profileService.getProfile().subscribe(profile => {
       this.accounts = profile.accounts;
+      console.log('email', profile.email);
+      this.currentUser = profile.email;
+      this.transferForm.controls['email'].setValue( this.currentUser);
     });
   }
 
@@ -48,4 +51,5 @@ export class PaymentsComponent implements OnInit {
       return selectedAccount.balance;
     }
   }
+
 }
