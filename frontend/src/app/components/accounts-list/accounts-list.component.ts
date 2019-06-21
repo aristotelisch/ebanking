@@ -1,17 +1,20 @@
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { AccountServiceService } from 'src/app/services/account/account-service.service';
 import {ProfileService} from '../../services/profile/profile.service';
+import {Observable, Subscription, timer} from 'rxjs';
 
 @Component({
   selector: 'app-accounts-list',
   templateUrl: './accounts-list.component.html',
   styleUrls: ['./accounts-list.component.scss']
 })
-export class AccountsListComponent implements OnInit {
+export class AccountsListComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
   accountList: [];
   userId: number;
+  every3Seconds: Observable<number> = timer(0, 3000);
 
   constructor(
     private http: HttpClient,
@@ -20,10 +23,13 @@ export class AccountsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.refreshData();
-    setInterval(() => {
+    this.subscription = this.every3Seconds.subscribe((seconds) => {
       this.refreshData();
-    }, 2000);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   refreshData() {
